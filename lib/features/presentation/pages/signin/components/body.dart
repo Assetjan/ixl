@@ -176,31 +176,31 @@ class _BodyState extends State<Body> {
               height: 50,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10),
-      side: BorderSide(color: Colors.grey, width: 1), // <-- Radius
-    ),),
+                  borderRadius: BorderRadius.circular(10),
+                  side: BorderSide(color: Colors.grey, width: 1), // <-- Radius
+                ),),
                 icon: Image.asset("assets/icons/google.png", width: 30, height: 30,),
                 label: Text('Continue with Google', style: TextStyle(color: Colors.black, fontSize: 17),),
                 onPressed: () {},
-          ),
+              ),
             ),
             SizedBox(height: 20),
             SizedBox(
-  width: double.infinity,
-  height: 50,
-  child: ElevatedButton.icon(
-    style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.black,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide.none, // Remove border
-      ),
-    ),
-    icon: Image.asset("assets/icons/apple_logo_white.svg.png", width: 30, height: 30,),
-    label: Text('Continue with Apple', style: TextStyle(color: Colors.white, fontSize: 17),),
-    onPressed: () {},
-  ),
-),
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: BorderSide.none, // Remove border
+                  ),
+                ),
+              icon: Image.asset("assets/icons/apple_logo_white.svg.png", width: 30, height: 30,),
+              label: Text('Continue with Apple', style: TextStyle(color: Colors.white, fontSize: 17),),
+              onPressed: () {},
+              ),
+            ),
           ],
             ),
       ),);

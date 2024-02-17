@@ -67,6 +67,13 @@ flutter:
     - assets/images/splashscreen_logo.png
     - assets/icons/google.png
     - assets/icons/apple_logo_white.svg.png
+    - assets/icons/back_button.png
+    - assets/images/profile_photo.png
+    - assets/icons/subject_page_icon.png
+    - assets/icons/math.png
+    - assets/icons/language.png
+    - assets/icons/science.png
+    - assets/icons/social.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ixl/features/presentation/pages/signin/components/body.dart';
+import 'package:ixl/features/presentation/pages/profile/components/body.dart';
 
-class SignInPage extends StatelessWidget {
+class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Body(),
+      body: ProfileBody(),
     );
   }
 }
