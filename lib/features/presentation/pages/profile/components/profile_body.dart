@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ixl/features/presentation/pages/profile/components/background.dart';
+import 'package:ixl/features/presentation/pages/profile/components/profile_background.dart';
 
 class ProfileBody extends StatefulWidget {
   @override

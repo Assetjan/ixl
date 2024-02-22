@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ixl/config/routes/app_routes.dart';
 import 'package:ixl/config/routes/bottom_navigation_bar.dart';
 import 'package:ixl/features/presentation/pages/profile/profile_page.dart';
+import 'package:ixl/features/presentation/pages/question/question_page.dart';
 import 'package:ixl/features/presentation/pages/signin/sign_in_page.dart';
 import 'package:ixl/features/presentation/pages/splashscreen/splash_screen.dart';
 
@@ -40,7 +41,15 @@ class RouteGenerator {
             return const BottomNavigation();
             // return MainPage(userCredential: userCredential);
           },
-        );     
+        ); 
+
+      case AppRoutes.questions:
+        return MaterialPageRoute(
+          builder: (context) {
+            return QuestionsPage();
+            // return MainPage(userCredential: userCredential);
+          },
+        );      
 
       default:
         return _errorRoute();
