@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ixl/features/presentation/pages/edit_profile/components/edit_profile_background.dart';
 
 class EditProfileBody extends StatefulWidget {
+  const EditProfileBody({super.key});
+
   @override
   State<EditProfileBody> createState() => _EditProfileBodyState();
 }
@@ -11,7 +13,7 @@ class _EditProfileBodyState extends State<EditProfileBody> {
   Widget build(BuildContext context) {
     return EditProfileBackground(
       child: Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, top: 55),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 55),
         child: Column(
           children: [
             Row(
@@ -24,9 +26,9 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                     height: 50,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 const Text("Edit profile", style: TextStyle(color: Colors.white, fontSize: 25),),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: () {},
                   child: const Text(
@@ -40,7 +42,7 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                 ),
               ],
             ),
-            Container(
+            SizedBox(
               width: 90,
               child: Stack(
                 children: [ 
@@ -68,7 +70,7 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                     width: 25,
                     height: 25,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Colors.blue,),
-                    child: Icon(
+                    child: const Icon(
                       Icons.edit,
                       color: Colors.white,
                       size: 20,
@@ -78,30 +80,29 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                 ]
               ),
             ),
-            SizedBox(height: 10),
-            Text("Name Surname", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-            Text("account@gmail.com", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.normal)),
-            SizedBox(height: 55),
-            ProfileTextField(label: 'Username', initialValue: 'Amirzhan Amirkhan'),
-            SizedBox(height: 10),
-            ProfileTextField(label: 'Email', initialValue: 'jointoapp@gmail.com'),
-            SizedBox(height: 10),
-            ProfileDropDown(label: 'Class', values: ['6 class', '7 class', '8 class']),
-            SizedBox(height: 10),
-            ProfileDropDown(label: 'School', values: ['124 school', '125 school', '126 school']),
-            SizedBox(height: 15),
+            const SizedBox(height: 10),
+            const Text("Name Surname", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
+            const Text("account@gmail.com", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.normal)),
+            const SizedBox(height: 55),
+            const ProfileTextField(label: 'Username', initialValue: 'Amirzhan Amirkhan'),
+            const SizedBox(height: 10),
+            const ProfileTextField(label: 'Email', initialValue: 'jointoapp@gmail.com'),
+            const SizedBox(height: 10),
+            const ProfileDropDown(label: 'Class', values: ['6 class', '7 class', '8 class']),
+            const SizedBox(height: 10),
+            const ProfileDropDown(label: 'School', values: ['124 school', '125 school', '126 school']),
+            const SizedBox(height: 15),
             ElevatedButton(
               onPressed: () {
                 // Handle sign out
               },
-              child: Text('Sign out', style: TextStyle(color: Colors.white, fontSize: 20),),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                ),
-                primary: Colors.red,
-                minimumSize: Size(double.infinity, 50),
+                ), backgroundColor: Colors.red,
+                minimumSize: const Size(double.infinity, 50),
               ),
+              child: const Text('Sign out', style: TextStyle(color: Colors.white, fontSize: 20),),
             )
           ],
         ),
@@ -114,7 +115,7 @@ class ProfileTextField extends StatelessWidget {
   final String label;
   final String initialValue;
 
-  ProfileTextField({required this.label, required this.initialValue});
+  const ProfileTextField({super.key, required this.label, required this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -125,13 +126,13 @@ class ProfileTextField extends StatelessWidget {
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.black,
                   width: 1.0,
                 ),
           ),
           labelText: label,
-          suffixIcon: Icon(Icons.edit),
+          suffixIcon: const Icon(Icons.edit),
         ),
       ),
     );
@@ -142,7 +143,7 @@ class ProfileDropDown extends StatelessWidget {
   final String label;
   final List<String> values;
 
-  ProfileDropDown({required this.label, required this.values});
+  const ProfileDropDown({super.key, required this.label, required this.values});
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +153,7 @@ class ProfileDropDown extends StatelessWidget {
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-                borderSide: BorderSide(
+                borderSide: const BorderSide(
                   color: Colors.black,
                   width: 1.0,
                 ),

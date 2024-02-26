@@ -11,14 +11,14 @@ class ProfileBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: size.height,
       width: double.infinity,
       child: Stack(
         alignment: Alignment.topCenter,
         children: <Widget>[
           Container(
-            color: Color.fromRGBO(9, 52, 86, 1),
+            color: const Color.fromRGBO(9, 52, 86, 1),
             height: size.height * 0.35,                
           ),
             child,

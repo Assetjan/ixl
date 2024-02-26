@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ixl/features/presentation/pages/subjects/components/subjects_background.dart';
 
 class SubjectsBody extends StatefulWidget {
+  const SubjectsBody({super.key});
+
   @override
   State<SubjectsBody> createState() => _SubjectsBodyState();
 }
@@ -101,7 +103,7 @@ class _SubjectsBodyState extends State<SubjectsBody> {
                             height: 35,
                             decoration: BoxDecoration(
                               color: current == index
-                                  ? Color.fromRGBO(0, 119, 182, 1)
+                                  ? const Color.fromRGBO(0, 119, 182, 1)
                                   : Colors.white,
                               borderRadius: current == index
                                   ? BorderRadius.circular(12)
@@ -115,9 +117,9 @@ class _SubjectsBodyState extends State<SubjectsBody> {
                                   size: current == index ? 23 : 20,
                                   color: current == index
                                       ? Colors.white
-                                      : Color.fromRGBO(9, 52, 86, 1),
+                                      : const Color.fromRGBO(9, 52, 86, 1),
                                 ),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
                                 Text(
                                   items[index],
                                   style: TextStyle(
@@ -125,7 +127,7 @@ class _SubjectsBodyState extends State<SubjectsBody> {
                                     fontSize: 15,
                                     color: current == index
                                         ? Colors.white
-                                        : Color.fromRGBO(9, 52, 86, 1),
+                                        : const Color.fromRGBO(9, 52, 86, 1),
                                   ),
                                 ),
                               ],
@@ -215,7 +217,7 @@ final List<Entry> data = <Entry>[
  
 // Create the Widget for the row
 class EntryItem extends StatelessWidget {
-  const EntryItem(this.entry);
+  const EntryItem(this.entry, {super.key});
   final Entry entry;
  
   // This function recursively creates the multi-level list rows.
@@ -227,7 +229,7 @@ class EntryItem extends StatelessWidget {
     }
     return ExpansionTile(
       key: PageStorageKey<Entry>(root),
-      title: Text(root.title, style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.normal, fontSize: 18),),
+      title: Text(root.title, style: const TextStyle(color: Colors.yellow, fontWeight: FontWeight.normal, fontSize: 18),),
       children: root.children.map<Widget>(_buildTiles).toList(),
     );
   }
@@ -261,5 +263,83 @@ class EntryItem extends StatelessWidget {
 //         }).toList(),
 //       ),
 //     );
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'dart:math';
+
+// import 'package:flutter/material.dart';
+// import 'package:ixl/features/presentation/pages/question/models/question.dart';
+
+// class QuestionProvider extends ChangeNotifier {
+//   int _currentQuestionIndex = 0;
+//   List<Question> _questionsList = questionsList;
+//   int _progressBarLength = 10;
+//   int _incorrectAnswers = 0;
+
+//   int get currentQuestionIndex => _currentQuestionIndex;
+//   Question get currentQuestion => _questionsList[_currentQuestionIndex];
+//   int get progressBarLength => _progressBarLength;
+
+//   void moveToNextQuestion() {
+//     if (_currentQuestionIndex < _questionsList.length - 1) {
+//       _currentQuestionIndex++;
+//       notifyListeners();
+//     } else {
+
+//     }
+//   }
+
+//   void updateUserAnswer(String answer) {
+//     _questionsList[_currentQuestionIndex].userAnswer = answer;
+//     notifyListeners();
+//   }
+
+//   void checkUserAnswer(BuildContext context) {
+//     if (currentQuestion.correctAnswer!.text == currentQuestion.userAnswer) {
+//       _progressBarLength += 10;
+//       _incorrectAnswers = 0;
+//       moveToNextQuestion();
+//       updateUserAnswer('');
+//     } else {
+//       _progressBarLength -= (1 + 2 * _incorrectAnswers);
+//       _incorrectAnswers++;
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Incorrect answer!'),
+//         ),
+//       );
+//       final random = Random();
+//       final List<Question> sameDifficultyQuestions = _questionsList
+//         .where((question) => question.difficulty == currentQuestion.difficulty)
+//         .toList();
+//       if (sameDifficultyQuestions.isNotEmpty) {
+//       _currentQuestionIndex = random.nextInt(sameDifficultyQuestions.length);
+//       } else {
+//       _currentQuestionIndex = random.nextInt(_questionsList.length);
+//       }
+//     }
+//     notifyListeners();
 //   }
 // }

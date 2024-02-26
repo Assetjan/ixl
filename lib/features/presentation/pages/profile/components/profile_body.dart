@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ixl/features/presentation/pages/profile/components/profile_background.dart';
 
 class ProfileBody extends StatefulWidget {
+  const ProfileBody({super.key});
+
   @override
   State<ProfileBody> createState() => _ProfileBodyState();
 }
@@ -11,7 +13,7 @@ class _ProfileBodyState extends State<ProfileBody> {
   Widget build(BuildContext context) {
     return ProfileBackground(
       child: Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, top: 55),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 55),
         child: Column(
           children: [
             Row(
@@ -30,13 +32,13 @@ class _ProfileBodyState extends State<ProfileBody> {
                     ),
                   ],
                 ),
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Profile", style: TextStyle(color: Colors.white, fontSize: 25),),
+                Text("Profile", style: TextStyle(color: Colors.white, fontSize: 25),),
               ],
             ),
-            Container(
+            SizedBox(
               width: 90,
               child: Stack(
                 children: [ 
@@ -60,18 +62,18 @@ class _ProfileBodyState extends State<ProfileBody> {
                 ]
               ),
             ),
-            SizedBox(height: 10),
-            Text("Name Surname", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-            Text("account@gmail.com", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.normal)),
-            SizedBox(height: 55),
+            const SizedBox(height: 10),
+            const Text("Name Surname", style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
+            const Text("account@gmail.com", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.normal)),
+            const SizedBox(height: 55),
             ProfileMenu(title: 'Settings', icon: Icons.settings, onPress: () {},), 
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ProfileMenu(title: 'Password', icon: Icons.lock, onPress: () {},),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ProfileMenu(title: 'Information', icon: Icons.info_outline, onPress: () {},),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ProfileMenu(title: 'Help', icon: Icons.help_outline, onPress: () {},),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ProfileMenu(title: 'Log out', icon: Icons.logout, onPress: () {}, endIcon: false, textColor: Colors.red,),
           ],
         ),
@@ -100,7 +102,7 @@ class ProfileMenu extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: Color.fromRGBO(9, 52, 86, 1),
+          color: const Color.fromRGBO(9, 52, 86, 1),
         ),
         child: Icon(icon, color: Colors.white, size: 30,),
       ),
@@ -112,7 +114,7 @@ class ProfileMenu extends StatelessWidget {
           borderRadius: BorderRadius.circular(100),
           color: Colors.grey.withOpacity(0.3),
         ),
-        child: Icon(Icons.chevron_right, size: 30, color: Colors.grey,),
+        child: const Icon(Icons.chevron_right, size: 30, color: Colors.grey,),
        ),
     );
   }

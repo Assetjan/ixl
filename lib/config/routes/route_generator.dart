@@ -3,6 +3,7 @@ import 'package:ixl/config/routes/app_routes.dart';
 import 'package:ixl/config/routes/bottom_navigation_bar.dart';
 import 'package:ixl/features/presentation/pages/profile/profile_page.dart';
 import 'package:ixl/features/presentation/pages/question/question_page.dart';
+import 'package:ixl/features/presentation/pages/signin/components/auth_page.dart';
 import 'package:ixl/features/presentation/pages/signin/sign_in_page.dart';
 import 'package:ixl/features/presentation/pages/splashscreen/splash_screen.dart';
 
@@ -14,7 +15,7 @@ class RouteGenerator {
       case AppRoutes.signin:
         return MaterialPageRoute(
           builder: (context) {
-            return SignInPage();
+            return const SignInPage();
             // return MainPage(userCredential: userCredential);
           },
         );
@@ -22,7 +23,7 @@ class RouteGenerator {
       case AppRoutes.splashscreen:
         return MaterialPageRoute(
           builder: (context) {
-            return SplashScreen();
+            return const SplashScreen();
             // return MainPage(userCredential: userCredential);
           },
         );
@@ -30,7 +31,7 @@ class RouteGenerator {
       case AppRoutes.profile:
         return MaterialPageRoute(
           builder: (context) {
-            return ProfilePage();
+            return const ProfilePage();
             // return MainPage(userCredential: userCredential);
           },
         );   
@@ -46,10 +47,18 @@ class RouteGenerator {
       case AppRoutes.questions:
         return MaterialPageRoute(
           builder: (context) {
-            return QuestionsPage();
+            return const QuestionsPage();
             // return MainPage(userCredential: userCredential);
           },
-        );      
+        ); 
+
+      case AppRoutes.questions:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const AuthPage();
+            // return MainPage(userCredential: userCredential);
+          },
+        );       
 
       default:
         return _errorRoute();

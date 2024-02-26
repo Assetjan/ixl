@@ -1,7 +1,6 @@
   import 'package:flutter/material.dart';
   import 'package:ixl/features/presentation/pages/subjects/components/subjects_background.dart';
   import 'package:ixl/features/presentation/pages/subjects/components/lesson_provider.dart';
-  import 'package:ixl/features/presentation/pages/subjects/models/lesson.dart';
   import 'package:provider/provider.dart';
 
 
@@ -60,7 +59,7 @@
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
                     child: TabBar(
                       indicatorSize: TabBarIndicatorSize.label, 
@@ -74,7 +73,7 @@
                       indicatorWeight: 1,
                       indicator: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        color: Color.fromRGBO(0, 119, 182, 1)
+                        color: const Color.fromRGBO(0, 119, 182, 1)
                       ),
                       tabs: const [
                         Tab(
@@ -128,10 +127,10 @@
                       ]
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Container(
+                  const SizedBox(height: 20),
+                  const SizedBox(
                     height: 300,
-                    child: const TabBarView(
+                    child: TabBarView(
                       children: [
                         MathLessons(),
                         Center(child: Text('Tab 1 Content')),

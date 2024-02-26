@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ixl/features/presentation/pages/subjects/models/lesson.dart';
 
@@ -110,7 +109,7 @@ class LessonsWidget extends StatelessWidget {
   final ValueChanged<bool> onExpansionChanged;
   final Color titleColor; // New property for title color
 
-  LessonsWidget({
+  const LessonsWidget({super.key, 
     required this.lesson,
     required this.onExpansionChanged,
     required this.titleColor, // Initialize title color
@@ -123,15 +122,15 @@ class LessonsWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: const Color.fromARGB(255, 187, 187, 187)), // Set border properties here
-        borderRadius: BorderRadius.all(Radius.circular(8)), // Optional: Set border radius
+        borderRadius: const BorderRadius.all(Radius.circular(8)), // Optional: Set border radius
       ),
       child: ExpansionTile(
         leading: CircleAvatar(
           radius: 25,
           backgroundColor: randomColor,
           child: Text(
-            lesson.title![0].toUpperCase(),
-            style: TextStyle(
+            lesson.title[0].toUpperCase(),
+            style: const TextStyle(
               fontSize: 25,
               fontWeight: FontWeight.bold,
               color: Colors.white,
@@ -149,7 +148,7 @@ class LessonsWidget extends StatelessWidget {
         initiallyExpanded: lesson.isExpanded,
         onExpansionChanged: onExpansionChanged,
         children: [
-          Divider( // Add Divider here
+          const Divider( // Add Divider here
             color: Colors.grey,
             thickness: 1,
           ),
@@ -163,7 +162,7 @@ class LessonsWidget extends StatelessWidget {
 class ScoreItemWidget extends StatelessWidget {
   final LessonItem item;
 
-  ScoreItemWidget({required this.item});
+  const ScoreItemWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

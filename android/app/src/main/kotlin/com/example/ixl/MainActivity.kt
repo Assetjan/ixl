@@ -1,4 +1,4 @@
-package kz.katev.ixl.ixl
+package com.example.ixl
 
 import io.flutter.embedding.android.FlutterActivity
 

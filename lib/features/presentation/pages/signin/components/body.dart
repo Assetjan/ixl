@@ -1,14 +1,90 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ixl/features/presentation/pages/profile/profile_page.dart';
 import 'package:ixl/features/presentation/pages/signin/components/background.dart';
+import 'package:ixl/services/auth_service.dart';
 
 class Body extends StatefulWidget {
+  const Body({super.key});
+
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-  bool _validate = false;
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final bool _validate = false;
   bool _hidePass = true;
+
+  void signUserIn(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      Navigator.pop(context);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfilePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      if (e.code == 'user-not-found') {
+        wrongEmailMessage();
+      }
+
+      else if (e.code == 'wrong-password') {
+        wrongPasswordMessage();
+      }
+    }
+  }
+
+  void wrongEmailMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Center(
+            child: Text(
+              'Incorrect Email',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void wrongPasswordMessage() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          backgroundColor: Colors.deepPurple,
+          title: Center(
+            child: Text(
+              'Incorrect Password',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +96,12 @@ class _BodyState extends State<Body> {
             Padding(
               padding: const EdgeInsets.only(top: 400),
               child: TextFormField(
+                      controller: emailController,
                       style: const TextStyle(
                         color: Colors.black,
                       ),
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 0),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0),
                         errorText: _validate ? "Login Can't Be Empty" : null,
                         fillColor: Colors.white,
                         filled: true,
@@ -59,13 +136,14 @@ class _BodyState extends State<Body> {
             Padding(
               padding: const EdgeInsets.only(top: 25),
               child: TextFormField(
+                      controller: passwordController,
                       obscureText: _hidePass,
                       maxLength: 8,
                       style: const TextStyle(
                         color: Colors.black,
                       ),
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 0),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0),
                         errorText: _validate ? "Құпия сөзді жазыңыз" : null,
                         suffixIcon: IconButton(
                             icon: Icon(_hidePass
@@ -121,30 +199,27 @@ class _BodyState extends State<Body> {
                 ),
               ],
             ),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                       backgroundColor: Color.fromRGBO(9, 52, 86, 1),
-                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10), // <-- Radius
-                       ),
-                    ),
-                    onPressed: () {},
-                    
-                    child: const Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 10),
-                      child: Text(
-                        'Sign in',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          backgroundColor: Color.fromRGBO(9, 52, 86, 1),
-                        ),
-                      ),
+            GestureDetector(
+              onTap: () => signUserIn(context),
+              child: Container(
+                width: double.infinity,
+                height: 50,
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  color: const Color.fromRGBO(9, 52, 86, 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Center(
+                  child: Text(
+                    "Кіру",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
                   ),
+                ),
+              ),
             ),
             const SizedBox(height: 20,),
             const Row(
@@ -170,21 +245,23 @@ class _BodyState extends State<Body> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               height: 50,
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.white, shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(color: Colors.grey, width: 1), // <-- Radius
+                  side: const BorderSide(color: Colors.grey, width: 1), // <-- Radius
                 ),),
                 icon: Image.asset("assets/icons/google.png", width: 30, height: 30,),
-                label: Text('Continue with Google', style: TextStyle(color: Colors.black, fontSize: 17),),
-                onPressed: () {},
+                label: const Text('Continue with Google', style: TextStyle(color: Colors.black, fontSize: 17),),
+                onPressed: () {
+                  AuthService().signInWithGoogle();
+                },
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               height: 50,
@@ -197,7 +274,7 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               icon: Image.asset("assets/icons/apple_logo_white.svg.png", width: 30, height: 30,),
-              label: Text('Continue with Apple', style: TextStyle(color: Colors.white, fontSize: 17),),
+              label: const Text('Continue with Apple', style: TextStyle(color: Colors.white, fontSize: 17),),
               onPressed: () {},
               ),
             ),

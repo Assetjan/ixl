@@ -3,10 +3,19 @@ import 'package:ixl/config/routes/app_routes.dart';
 import 'package:ixl/config/routes/route_generator.dart';
 import 'package:ixl/features/presentation/pages/subjects/components/lesson_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Provider.debugCheckInvalidValueType = null;
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+
   runApp(const MyApp());
 }
 
@@ -21,9 +30,9 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
-        initialRoute: AppRoutes.questions,
+        initialRoute: AppRoutes.signin,
       ),
     );
   }
-}
+} 
 

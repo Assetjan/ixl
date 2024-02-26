@@ -14,10 +14,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
   int _currentIndex = 0;
 
   final tabs = [
-    SubjectsPage(),
+    const SubjectsPage(),
     const Center(child: Text("Progress"),),
     const Center(child: Text("Settings"),),
-    ProfilePage(),
+    const ProfilePage(),
   ];
 
   @override

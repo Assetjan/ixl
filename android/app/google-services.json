@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "252028585148",
+    "project_id": "ixl-project-a35c1",
+    "storage_bucket": "ixl-project-a35c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252028585148:android:833733e2b2f562f64b7cb9",
+        "android_client_info": {
+          "package_name": "kz.katev.ixl.ixl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "252028585148-rcknq2glnk85v3ti9dbku990ii1dhi7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEUcfu6AIE4X58e12AGDdAEomYNlbBicI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "252028585148-rcknq2glnk85v3ti9dbku990ii1dhi7r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "252028585148-5879uqk20mdg7gi90qgqeifmn25fo564.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kz.katev.ixl.ixl"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
