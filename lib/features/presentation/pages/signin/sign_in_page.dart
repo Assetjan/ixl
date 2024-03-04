@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ixl/features/presentation/pages/signin/components/body.dart';
+import 'package:ixl/features/presentation/pages/signin/components/sign_in_body.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -8,7 +8,7 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Body(),
+      body: SignInBody(),
     );
   }
 }

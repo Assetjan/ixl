@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:ixl/config/routes/app_routes.dart';
 import 'package:ixl/config/routes/route_generator.dart';
 import 'package:ixl/features/presentation/pages/subjects/components/lesson_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'core/services/firebase_options.dart';
 
 
 void main() async {
@@ -14,7 +15,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  
+  await Hive.initFlutter();
+  await Hive.openBox("lesson_box");
 
   runApp(const MyApp());
 }
@@ -30,9 +33,9 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
-        initialRoute: AppRoutes.signin,
+        initialRoute: AppRoutes.questionsHive,
       ),
     );
   }
-} 
+}
 

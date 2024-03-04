@@ -4,5 +4,6 @@ class AppRoutes {
   static const profile = '/profile';
   static const navigationBar = '/navigationBar';
   static const questions = '/questions';
+  static const questionsHive = '/questionsHive';
   static const auth = '/auth';
 }

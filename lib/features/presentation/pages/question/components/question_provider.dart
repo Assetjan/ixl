@@ -15,8 +15,7 @@ class QuestionProvider extends ChangeNotifier {
     if (_currentQuestionIndex < _questionsList.length - 1) {
       _currentQuestionIndex++;
     } else {
-      // Handle when all questions are answered
-      _currentQuestionIndex = 0; // Reset to the first question
+      _currentQuestionIndex = 0;
     }
     notifyListeners();
   }
@@ -74,7 +73,6 @@ class QuestionProvider extends ChangeNotifier {
 
   _progressBarValue = (_progressBarValue + incrementFactor).clamp(0.0, 100.0);
   if (_progressBarValue >= 100 && difficulty == "Very hard") {
-    // Open a new page as progress bar reaches 100 in "Very hard" category
   } else if (_progressBarValue >= 28 && difficulty == "Elementary") {
     _selectQuestionByDifficulty("Elementary");
   } else if (_progressBarValue >= 10 && difficulty == "Effortless") {
@@ -133,7 +131,6 @@ void _handleIncorrectAnswer(BuildContext context) {
     if (filteredQuestions.isNotEmpty) {
       _currentQuestionIndex = random.nextInt(filteredQuestions.length);
     } else {
-      // Handle if no questions available for the given difficulty
     }
   }
 }

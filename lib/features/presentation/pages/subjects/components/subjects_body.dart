@@ -1,19 +1,58 @@
-  import 'package:flutter/material.dart';
-  import 'package:ixl/features/presentation/pages/subjects/components/subjects_background.dart';
-  import 'package:ixl/features/presentation/pages/subjects/components/lesson_provider.dart';
-  import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+import 'package:ixl/features/presentation/pages/subjects/components/lesson_provider.dart';
+import 'package:ixl/features/presentation/pages/subjects/components/subjects_background.dart';
+import 'package:provider/provider.dart';
 
+class SubjectsBody extends StatefulWidget {
+  const SubjectsBody({Key? key}) : super(key: key);
 
-  class SubjectsBody extends StatelessWidget {
-    const SubjectsBody({super.key});
+  @override
+  _SubjectsBodyState createState() => _SubjectsBodyState();
+}
 
+class _SubjectsBodyState extends State<SubjectsBody>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
-    @override
-    Widget build(BuildContext context) {
-      final lesProvider = Provider.of<LessonProvider>(context, listen: false);
-      lesProvider.init();
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    _animation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
+    _controller.forward();
+  }
 
-      return SubjectsBackground(
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Opacity(
+          opacity: _animation.value,
+          child: Transform.translate(
+            offset: Offset(0.0, 50 * (1 - _animation.value)),
+            child: _buildContent(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildContent() {
+    final lesProvider = Provider.of<LessonProvider>(context, listen: false);
+    lesProvider.init();
+
+    return SubjectsBackground(
         child: DefaultTabController(
           length: 4,
           child: DefaultTabController(
@@ -137,8 +176,7 @@
                         Center(child: Text('Tab 2 Content')),
                         Center(child: Text('Tab 3 Content')),
                     ]),
-                  )
-
+                  ),
               ]
             ),
             ),
@@ -146,8 +184,8 @@
         ),
           
       );
-    }
   }
+}
 
   class MathLessons extends StatelessWidget {
   const MathLessons({Key? key}) : super(key: key);

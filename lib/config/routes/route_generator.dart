@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ixl/config/routes/app_routes.dart';
 import 'package:ixl/config/routes/bottom_navigation_bar.dart';
 import 'package:ixl/features/presentation/pages/profile/profile_page.dart';
+import 'package:ixl/features/presentation/pages/question/components/questions_hive.dart';
 import 'package:ixl/features/presentation/pages/question/question_page.dart';
 import 'package:ixl/features/presentation/pages/signin/components/auth_page.dart';
 import 'package:ixl/features/presentation/pages/signin/sign_in_page.dart';
@@ -58,7 +59,15 @@ class RouteGenerator {
             return const AuthPage();
             // return MainPage(userCredential: userCredential);
           },
-        );       
+        ); 
+
+      case AppRoutes.questionsHive:
+        return MaterialPageRoute(
+          builder: (context) {
+            return QuestionsHive();
+            // return MainPage(userCredential: userCredential);
+          },
+        );        
 
       default:
         return _errorRoute();

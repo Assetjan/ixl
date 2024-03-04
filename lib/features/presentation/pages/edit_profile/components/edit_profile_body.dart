@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ixl/features/presentation/pages/edit_profile/components/edit_profile_background.dart';
+import 'package:ixl/features/presentation/pages/edit_profile/components/edit_profile_textfield.dart';
+import 'package:ixl/features/presentation/pages/edit_profile/components/profile_dropdown.dart';
 
 class EditProfileBody extends StatefulWidget {
   const EditProfileBody({super.key});
@@ -106,70 +108,6 @@ class _EditProfileBodyState extends State<EditProfileBody> {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ProfileTextField extends StatelessWidget {
-  final String label;
-  final String initialValue;
-
-  const ProfileTextField({super.key, required this.label, required this.initialValue});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TextFormField(
-        initialValue: initialValue,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 1.0,
-                ),
-          ),
-          labelText: label,
-          suffixIcon: const Icon(Icons.edit),
-        ),
-      ),
-    );
-  }
-}
-
-class ProfileDropDown extends StatelessWidget {
-  final String label;
-  final List<String> values;
-
-  const ProfileDropDown({super.key, required this.label, required this.values});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: DropdownButtonFormField<String>(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 1.0,
-                ),
-          ),
-          labelText: label,
-        ),
-        value: values.first,
-        onChanged: (String? newValue) {
-          // Handle change
-        },
-        items: values.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
       ),
     );
   }

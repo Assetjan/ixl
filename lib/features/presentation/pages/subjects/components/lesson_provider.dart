@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ixl/features/presentation/pages/question/question_page.dart';
 import 'package:ixl/features/presentation/pages/subjects/models/lesson.dart';
 
 class LessonProvider extends ChangeNotifier {
@@ -107,7 +108,7 @@ class LessonList extends StatelessWidget {
 class LessonsWidget extends StatelessWidget {
   final Lesson lesson;
   final ValueChanged<bool> onExpansionChanged;
-  final Color titleColor; // New property for title color
+  final Color titleColor;
 
   const LessonsWidget({super.key, 
     required this.lesson,
@@ -120,6 +121,7 @@ class LessonsWidget extends StatelessWidget {
     Color randomColor = LessonProvider().getRandomColor();
 
     return Container(
+      width: MediaQuery.of(context).size.width * 0.9,
       decoration: BoxDecoration(
         border: Border.all(color: const Color.fromARGB(255, 187, 187, 187)), // Set border properties here
         borderRadius: const BorderRadius.all(Radius.circular(8)), // Optional: Set border radius
@@ -137,18 +139,51 @@ class LessonsWidget extends StatelessWidget {
             ),
           ),
         ),
-        title: Text(
+        title: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Container(
+        width: 200,
+        child: Text(
           lesson.title,
           style: TextStyle(
             color: randomColor,
             fontSize: 18,
             fontWeight: FontWeight.bold
-            ),
+          ),
         ),
+      ),
+      Container(
+        width: 25,
+        child: PopupMenuButton(
+          itemBuilder: (BuildContext context) {
+            return [
+              PopupMenuItem(
+                child: Text('Add'),
+                value: 'option1',
+              ),
+              PopupMenuItem(
+                child: Text('Edit'),
+                value: 'option2',
+              ),
+              PopupMenuItem(
+                child: Text('Delete'),
+                value: 'option2',
+              ),
+            ];
+          },
+          onSelected: (value) {
+            print('Selected: $value');
+          },
+        ),
+      ),
+    ],
+  ),
         initiallyExpanded: lesson.isExpanded,
         onExpansionChanged: onExpansionChanged,
+        
         children: [
-          const Divider( // Add Divider here
+          const Divider(
             color: Colors.grey,
             thickness: 1,
           ),
@@ -167,7 +202,12 @@ class ScoreItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(item.subtitle),
+      title: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionsPage()));
+        },
+        child: Text(item.subtitle),
+      ),
       trailing: Text('${item.score}/100'),
     );
   }
