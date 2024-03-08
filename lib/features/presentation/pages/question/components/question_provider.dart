@@ -1,136 +1,182 @@
+import 'dart:collection';
 import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ixl/features/presentation/pages/question/models/question.dart';
 
 class QuestionProvider extends ChangeNotifier {
-  int _currentQuestionIndex = 0;
-  final List<Question> _questionsList = questionsList;
+  int _correctAnswersInRow = 0;
+  int _sumOfPoints = 0;
+  bool _enableTextField = true;
+  List<Question> _questionsList = questionsList;
   double _progressBarValue = 0.0;
+  bool _correctRow = true;
+  Map<String, List<Question>> _listByDifficulty = {
+    'Easy': [],
+    'Medium': [],
+    'Hard': [],
+    'Master': []
+  };
+  Map<String, Queue<int>> _answeredQuestionsIndexesByDifficulty = {
+    'Easy': Queue<int>(),
+    'Medium': Queue<int>(),
+    'Hard': Queue<int>(),
+    'Master': Queue<int>()
+  };
 
-  int get currentQuestionIndex => _currentQuestionIndex;
-  Question get currentQuestion => _questionsList[_currentQuestionIndex];
+  QuestionProvider() {
+    _organizeQuestionsByDifficulty();
+    _selectNextQuestion();
+  }
+
+  Question get currentQuestion => _questionsList
+      .firstWhere((question) => question.id == _currentQuestionIndex);
   double get progressBarValue => _progressBarValue;
+  int get correctAnswersInRow => _correctAnswersInRow;
+  int get sumOfPoints => _sumOfPoints;
+  bool get enableTextField => _enableTextField;
+  late int _currentQuestionIndex;
+
+  void _organizeQuestionsByDifficulty() {
+    for (var question in _questionsList) {
+      String difficulty = _getDifficultyCategory(question.difficulty);
+      _listByDifficulty[difficulty]?.add(question);
+    }
+  }
+
+  String _getDifficultyCategory(String difficulty) {
+    if (["Easy", "Surefire", "Effortless", "Elementary"].contains(difficulty)) {
+      return 'Easy';
+    } else if (["Medium", "Doable"].contains(difficulty)) {
+      return 'Medium';
+    } else if (["Hard", "Difficult", "Challenging", "Impossible"]
+        .contains(difficulty)) {
+      return 'Hard';
+    } else {
+      return 'Master';
+    }
+  }
+
+  void _selectNextQuestion() {
+    String difficulty = _getCurrentDifficulty();
+    var questionsInDifficulty = _listByDifficulty[difficulty]!;
+    var answeredIndexes = _answeredQuestionsIndexesByDifficulty[difficulty]!;
+
+    if (answeredIndexes.length == questionsInDifficulty.length) {
+      answeredIndexes.clear();
+    }
+
+    List<Question> unansweredQuestions = questionsInDifficulty
+        .where((q) => !answeredIndexes.contains(q.id))
+        .toList();
+    var random = Random();
+    var nextQuestion =
+        unansweredQuestions[random.nextInt(unansweredQuestions.length)];
+    _currentQuestionIndex = nextQuestion.id;
+
+    answeredIndexes.add(nextQuestion.id);
+    notifyListeners();
+  }
+
+  String _getCurrentDifficulty() {
+    if (_sumOfPoints <= 50) {
+      return 'Easy';
+    } else if (_sumOfPoints <= 70) {
+      return 'Medium';
+    } else if (_sumOfPoints <= 90) {
+      return 'Hard';
+    } else {
+      return 'Master';
+    }
+  }
 
   void moveToNextQuestion() {
-    if (_currentQuestionIndex < _questionsList.length - 1) {
-      _currentQuestionIndex++;
-    } else {
-      _currentQuestionIndex = 0;
-    }
-    notifyListeners();
+    _selectNextQuestion();
   }
 
   void checkUserAnswer(BuildContext context, String answer) {
-    final currentQuestion = _questionsList[_currentQuestionIndex];
     if (currentQuestion.correctAnswer == answer) {
-      _handleCorrectAnswer();
+      _handleCorrectAnswer(context);
     } else {
       _handleIncorrectAnswer(context);
     }
-    _progressBarValue = (_currentQuestionIndex + 1) / _questionsList.length * 100;
+    _progressBarValue = _sumOfPoints.toDouble();
+    _selectNextQuestion();
+
+    if (_sumOfPoints >= 100) {
+      _enableTextField = false;
+      showCongratulationsDialog(context);
+      _sumOfPoints = 100;
+      notifyListeners();
+    }
+  }
+
+  void _handleCorrectAnswer(BuildContext context) {
+    int startIncrement = 10 - _sumOfPoints ~/ 10;
+    int currentIncrement = startIncrement;
+    bool hasSkippedDecrement = currentIncrement != 10;
+
+    if (_sumOfPoints < 70) {
+      _sumOfPoints += currentIncrement;
+
+      if (!hasSkippedDecrement && currentIncrement > 4) {
+        currentIncrement--;
+      } else {
+        hasSkippedDecrement = true;
+      }
+
+      if (currentIncrement < 4) {
+        currentIncrement = 4;
+      }
+    } else if (_sumOfPoints >= 70 && _sumOfPoints < 80) {
+      _sumOfPoints += 3;
+    } else {
+      _sumOfPoints += 2;
+    }
     notifyListeners();
   }
 
-  void _handleCorrectAnswer() {
-  final currentQuestion = _questionsList[_currentQuestionIndex];
-  final difficulty = currentQuestion.difficulty;
-
-  int incrementFactor = 0;
-  switch (difficulty) {
-    case "Surefire":
-      incrementFactor = 10;
-      break;
-    case "Effortless":
-      incrementFactor = 9;
-      break;
-    case "Elementary":
-      incrementFactor = 8;
-      break;
-    case "Easy":
-      incrementFactor = 7;
-      break;
-    case "Doable":
-      incrementFactor = 6;
-      break;
-    case "Difficult":
-      incrementFactor = 5;
-      break;
-    case "Challenging":
-      incrementFactor = 4;
-      break;
-    case "Impossible":
-      incrementFactor = 3;
-      break;
-    case "Hard":
-      incrementFactor = 2;
-      break;
-    case "Very hard":
-      incrementFactor = _progressBarValue < 98 ? 1 : 0;
-      break;
-    default:
-      break;
-  }
-
-  _progressBarValue = (_progressBarValue + incrementFactor).clamp(0.0, 100.0);
-  if (_progressBarValue >= 100 && difficulty == "Very hard") {
-  } else if (_progressBarValue >= 28 && difficulty == "Elementary") {
-    _selectQuestionByDifficulty("Elementary");
-  } else if (_progressBarValue >= 10 && difficulty == "Effortless") {
-    _selectQuestionByDifficulty("Effortless");
-  } else {
-    moveToNextQuestion();
-  }
-
-  notifyListeners();
-}
-
-void _handleIncorrectAnswer(BuildContext context) {
-  final currentQuestion = _questionsList[_currentQuestionIndex];
-  final difficulty = currentQuestion.difficulty;
-
-  int decrementFactor = 0;
-  switch (difficulty) {
-    case "Effortless":
-      decrementFactor = 1;
-      break;
-    case "Elementary":
-      decrementFactor = 2;
-      break;
-    case "Easy":
-      decrementFactor = 3;
-      break;
-    case "Doable":
-    case "Difficult":
-    case "Challenging":
-    case "Impossible":
-    case "Hard":
-    case "Very hard":
-      decrementFactor = 4;
-      break;
-    default:
-      break;
-  }
-
-  _progressBarValue -= decrementFactor;
-
-  if (_progressBarValue < 10) {
-    _selectQuestionByDifficulty("Surefire");
-  } else if (_progressBarValue < 28) {
-    _selectQuestionByDifficulty("Effortless");
-  }
-
-  notifyListeners();
-  moveToNextQuestion();
-}
-
-  void _selectQuestionByDifficulty(String difficulty) {
-    final random = Random();
-    final filteredQuestions = _questionsList
-        .where((question) => question.difficulty == difficulty)
-        .toList();
-    if (filteredQuestions.isNotEmpty) {
-      _currentQuestionIndex = random.nextInt(filteredQuestions.length);
+  void _handleIncorrectAnswer(BuildContext context) {
+    if (_sumOfPoints < 60) {
+      _sumOfPoints -= _sumOfPoints ~/ 10;
+    } else if (_sumOfPoints >= 60 && _sumOfPoints < 70) {
+      _sumOfPoints -= (_sumOfPoints ~/ 10) - 1;
     } else {
+      _sumOfPoints -= (_sumOfPoints ~/ 10) - 2;
     }
+    notifyListeners();
+  }
+
+  void showCongratulationsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Congratulations!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You have successfully reached the maximum score.'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Close'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void storeValueHive(String name, int score, String key) async {
+    var scoreBox = await Hive.openBox('score');
+    scoreBox.put(key, score);
   }
 }

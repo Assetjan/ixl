@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ixl/features/presentation/pages/question/question_page.dart';
 import 'package:ixl/features/presentation/pages/subjects/models/lesson.dart';
 
@@ -11,8 +13,7 @@ class LessonProvider extends ChangeNotifier {
       isExpanded: false,
       category: 'math',
       items: [
-        LessonItem(subtitle: 'Add and subtract whole numbers', score: 83),
-        LessonItem(subtitle: 'Add and subtract whole numbers: word problems', score: 76),
+        LessonItem(subtitle: 'Add and subtract whole numbers', score: 23),
       ],
     ),
     Lesson(
@@ -21,9 +22,12 @@ class LessonProvider extends ChangeNotifier {
       category: 'Language',
       items: [
         LessonItem(subtitle: 'Multiply whole numbers', score: 0),
-        LessonItem(subtitle: 'Multiply whole numbers: words problems', score: 0),
+        LessonItem(
+            subtitle: 'Multiply whole numbers: words problems', score: 0),
         LessonItem(subtitle: 'Multiply numbers ending in zeros', score: 0),
-        LessonItem(subtitle: 'Multiply numbers ending in zeros: word problems', score: 0),
+        LessonItem(
+            subtitle: 'Multiply numbers ending in zeros: word problems',
+            score: 0),
         LessonItem(subtitle: 'Estimate products', score: 0),
       ],
     ),
@@ -96,7 +100,7 @@ class LessonList extends StatelessWidget {
         return LessonsWidget(
           lesson: lesson,
           onExpansionChanged: (bool expanded) {
-              lesson.isExpanded = expanded;
+            lesson.isExpanded = expanded;
           },
           titleColor: LessonProvider().getRandomColor(),
         );
@@ -110,7 +114,8 @@ class LessonsWidget extends StatelessWidget {
   final ValueChanged<bool> onExpansionChanged;
   final Color titleColor;
 
-  const LessonsWidget({super.key, 
+  const LessonsWidget({
+    super.key,
     required this.lesson,
     required this.onExpansionChanged,
     required this.titleColor, // Initialize title color
@@ -123,8 +128,11 @@ class LessonsWidget extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       decoration: BoxDecoration(
-        border: Border.all(color: const Color.fromARGB(255, 187, 187, 187)), // Set border properties here
-        borderRadius: const BorderRadius.all(Radius.circular(8)), // Optional: Set border radius
+        border: Border.all(
+            color: const Color.fromARGB(
+                255, 187, 187, 187)), // Set border properties here
+        borderRadius: const BorderRadius.all(
+            Radius.circular(8)), // Optional: Set border radius
       ),
       child: ExpansionTile(
         leading: CircleAvatar(
@@ -140,48 +148,46 @@ class LessonsWidget extends StatelessWidget {
           ),
         ),
         title: Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Container(
-        width: 200,
-        child: Text(
-          lesson.title,
-          style: TextStyle(
-            color: randomColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-          ),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: 200,
+              child: Text(
+                lesson.title,
+                style: TextStyle(
+                    color: randomColor,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Container(
+              width: 25,
+              child: PopupMenuButton(
+                itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem(
+                      child: Text('Add'),
+                      value: 'option1',
+                    ),
+                    PopupMenuItem(
+                      child: Text('Edit'),
+                      value: 'option2',
+                    ),
+                    PopupMenuItem(
+                      child: Text('Delete'),
+                      value: 'option2',
+                    ),
+                  ];
+                },
+                onSelected: (value) {
+                  print('Selected: $value');
+                },
+              ),
+            ),
+          ],
         ),
-      ),
-      Container(
-        width: 25,
-        child: PopupMenuButton(
-          itemBuilder: (BuildContext context) {
-            return [
-              PopupMenuItem(
-                child: Text('Add'),
-                value: 'option1',
-              ),
-              PopupMenuItem(
-                child: Text('Edit'),
-                value: 'option2',
-              ),
-              PopupMenuItem(
-                child: Text('Delete'),
-                value: 'option2',
-              ),
-            ];
-          },
-          onSelected: (value) {
-            print('Selected: $value');
-          },
-        ),
-      ),
-    ],
-  ),
         initiallyExpanded: lesson.isExpanded,
         onExpansionChanged: onExpansionChanged,
-        
         children: [
           const Divider(
             color: Colors.grey,
@@ -204,7 +210,8 @@ class ScoreItemWidget extends StatelessWidget {
     return ListTile(
       title: GestureDetector(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => QuestionsPage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => QuestionsPage()));
         },
         child: Text(item.subtitle),
       ),
@@ -213,30 +220,7 @@ class ScoreItemWidget extends StatelessWidget {
   }
 }
 
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+getValuesHive(String key) async {
+  var scoreBox = await Hive.openBox('score');
+  return scoreBox.get(key);
+}
