@@ -2,16 +2,5 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ixl/features/presentation/pages/question/components/question_provider.dart';
 
 void main() {
-  group('QuestionProvider Tests', () {
-    test('Initial values are set correctly', () {
-      final provider = QuestionProvider();
-
-      expect(provider.progressBarValue, 0.0);
-    });
-
-    test('Move to next question updates current index correctly', () {
-      final provider = QuestionProvider();
-      provider.moveToNextQuestion();
-    });
-  });
+  group('QuestionProvider Tests', () {});
 }

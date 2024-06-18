@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:ixl/config/routes/app_routes.dart';
 import 'package:ixl/config/routes/route_generator.dart';
+import 'package:ixl/core/services/firebase_options.dart';
 import 'package:ixl/core/services/hive/score.dart';
+import 'package:ixl/features/presentation/pages/question/components/question_provider.dart';
 import 'package:ixl/features/presentation/pages/subjects/components/lesson_provider.dart';
 import 'package:provider/provider.dart';
-
-import 'core/services/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +16,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   await Hive.initFlutter();
   Hive.registerAdapter(ScoreAdapter());
   runApp(const MyApp());
@@ -29,11 +28,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(create: (_) => LessonProvider()),
+        Provider(
+            create: (_) => QuestionProvider('subject', 'theme', 'test', 1)),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RouteGenerator.generateRoute,
-        initialRoute: AppRoutes.navigationBar,
+        initialRoute: AppRoutes.splashscreen,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ixl/core/colors.dart';
 
 class ProfileBackground extends StatelessWidget {
   final Widget child;
@@ -6,7 +7,6 @@ class ProfileBackground extends StatelessWidget {
     super.key,
     required this.child,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,10 @@ class ProfileBackground extends StatelessWidget {
         alignment: Alignment.topCenter,
         children: <Widget>[
           Container(
-            color: const Color.fromRGBO(9, 52, 86, 1),
-            height: size.height * 0.35,                
+            color: AppColors.main_blue,
+            height: size.height * 0.37,
           ),
-            child,
+          child,
         ],
       ),
     );

@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -47,28 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDjajShbAkFm7-SrpQLteGxPO7NRIEP0b0',
-    appId: '1:252028585148:web:98ec1579242261514b7cb9',
-    messagingSenderId: '252028585148',
-    projectId: 'ixl-project-a35c1',
-    authDomain: 'ixl-project-a35c1.firebaseapp.com',
-    storageBucket: 'ixl-project-a35c1.appspot.com',
+    apiKey: 'AIzaSyAuFGoxLw-e4j0ZxhcquARn0kAVaWEyjP8',
+    appId: '1:1010539929098:web:2179002e2f09c48f6989f3',
+    messagingSenderId: '1010539929098',
+    projectId: 'ixl-4123b',
+    authDomain: 'ixl-4123b.firebaseapp.com',
+    storageBucket: 'ixl-4123b.appspot.com',
+    measurementId: 'G-G06YEGF0NM',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAEUcfu6AIE4X58e12AGDdAEomYNlbBicI',
-    appId: '1:252028585148:android:833733e2b2f562f64b7cb9',
-    messagingSenderId: '252028585148',
-    projectId: 'ixl-project-a35c1',
-    storageBucket: 'ixl-project-a35c1.appspot.com',
+    apiKey: 'AIzaSyAotP27A2zxLm00qh1PjKKTfr3zhiZlTUY',
+    appId: '1:1010539929098:android:fe9762b7474a5b616989f3',
+    messagingSenderId: '1010539929098',
+    projectId: 'ixl-4123b',
+    storageBucket: 'ixl-4123b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAShAJkGrARDSC4M8zopJj5Fk8oSQwpNbQ',
-    appId: '1:252028585148:ios:9974f5eea2595a924b7cb9',
-    messagingSenderId: '252028585148',
-    projectId: 'ixl-project-a35c1',
-    storageBucket: 'ixl-project-a35c1.appspot.com',
+    apiKey: 'AIzaSyAE5-qFovjJgX_b_SgSO1gc3CmvtURcL08',
+    appId: '1:1010539929098:ios:2aaf42c67dfd9dbe6989f3',
+    messagingSenderId: '1010539929098',
+    projectId: 'ixl-4123b',
+    storageBucket: 'ixl-4123b.appspot.com',
     iosBundleId: 'kz.katev.ixl.ixl',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAE5-qFovjJgX_b_SgSO1gc3CmvtURcL08',
+    appId: '1:1010539929098:ios:18b8ce5feab32bfd6989f3',
+    messagingSenderId: '1010539929098',
+    projectId: 'ixl-4123b',
+    storageBucket: 'ixl-4123b.appspot.com',
+    iosBundleId: 'com.example.ixl.RunnerTests',
   );
 }

@@ -7,6 +7,11 @@ import 'package:ixl/features/presentation/pages/question/question_page.dart';
 import 'package:ixl/features/presentation/pages/signin/components/auth_page.dart';
 import 'package:ixl/features/presentation/pages/signin/sign_in_page.dart';
 import 'package:ixl/features/presentation/pages/splashscreen/splash_screen.dart';
+import 'package:ixl/features/presentation/pages/teacher/bottom_nav_bar_teacher/bottom_nav_bar_teacher.dart';
+import 'package:ixl/features/presentation/pages/teacher/signin_teacher/sign_in_teacher_page.dart';
+import 'package:ixl/features/presentation/pages/teacher/signup_teacher/sign_up_teacher_page.dart';
+import 'package:ixl/features/presentation/pages/teacher/teacher_page/components/each_student_score.dart';
+import 'package:ixl/features/presentation/pages/teacher/teacher_page/teacher_page.dart';
 
 class RouteGenerator {
   static Route<Object?>? generateRoute(RouteSettings settings) {
@@ -35,7 +40,7 @@ class RouteGenerator {
             return const ProfilePage();
             // return MainPage(userCredential: userCredential);
           },
-        );   
+        );
 
       case AppRoutes.navigationBar:
         return MaterialPageRoute(
@@ -43,15 +48,16 @@ class RouteGenerator {
             return const BottomNavigation();
             // return MainPage(userCredential: userCredential);
           },
-        ); 
+        );
 
       case AppRoutes.questions:
         return MaterialPageRoute(
           builder: (context) {
-            return const QuestionsPage();
+            return QuestionsPage();
             // return MainPage(userCredential: userCredential);
           },
-        ); 
+          settings: settings,
+        );
 
       case AppRoutes.questions:
         return MaterialPageRoute(
@@ -59,7 +65,7 @@ class RouteGenerator {
             return const AuthPage();
             // return MainPage(userCredential: userCredential);
           },
-        ); 
+        );
 
       case AppRoutes.questionsHive:
         return MaterialPageRoute(
@@ -67,7 +73,48 @@ class RouteGenerator {
             return QuestionsHive();
             // return MainPage(userCredential: userCredential);
           },
-        );        
+        );
+      case AppRoutes.signin_teacher:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SignInTeacherPage();
+          },
+        );
+
+      case AppRoutes.signup_teacher:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const SignUpTeacherPage();
+          },
+        );
+
+      // case AppRoutes.teacher_page:
+      //   return MaterialPageRoute(
+      //     builder: (context) {
+      //       return const TeacherPage();
+      //     },
+      //   );
+      case AppRoutes.each_student_score:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const EachStudentScore();
+          },
+          settings: settings,
+        );
+      case AppRoutes.review_page:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const EachStudentScore();
+          },
+          settings: settings,
+        );
+      case AppRoutes.bottom_nav_bar_teacher:
+        return MaterialPageRoute(
+          builder: (context) {
+            return const BottomNavBarTeacher();
+          },
+          settings: settings,
+        );
 
       default:
         return _errorRoute();

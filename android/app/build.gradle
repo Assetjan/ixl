@@ -39,6 +39,11 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "mvp.apk"
+        }
+    }
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ixl/core/colors.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
-    super.key, required this.title, required this.icon, required this.onPress, this.endIcon = true, this.textColor,
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.onPress,
+    this.endIcon = true,
+    this.textColor,
   });
 
   final String title;
@@ -20,11 +26,18 @@ class ProfileMenu extends StatelessWidget {
         height: 50,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: const Color.fromRGBO(9, 52, 86, 1),
+          color: AppColors.main_blue,
         ),
-        child: Icon(icon, color: Colors.white, size: 30,),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 30,
+        ),
       ),
-      title: Text(title, style: TextStyle(fontSize: 20, color: (textColor)),),
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 20, color: (textColor)),
+      ),
       trailing: Container(
         width: 35,
         height: 35,
@@ -32,8 +45,12 @@ class ProfileMenu extends StatelessWidget {
           borderRadius: BorderRadius.circular(100),
           color: Colors.grey.withOpacity(0.3),
         ),
-        child: const Icon(Icons.chevron_right, size: 30, color: Colors.grey,),
-       ),
+        child: const Icon(
+          Icons.chevron_right,
+          size: 30,
+          color: Colors.grey,
+        ),
+      ),
     );
   }
 }

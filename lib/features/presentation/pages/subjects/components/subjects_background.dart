@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ixl/core/colors.dart';
 import 'package:ixl/features/presentation/pages/question/components/questions_hive.dart';
 
 class SubjectsBackground extends StatelessWidget {
@@ -8,7 +9,6 @@ class SubjectsBackground extends StatelessWidget {
     required this.child,
   });
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -16,14 +16,15 @@ class SubjectsBackground extends StatelessWidget {
       height: size.height,
       width: double.infinity,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Stack(
           alignment: Alignment.topCenter,
           children: <Widget>[
             Container(
-              color: const Color.fromRGBO(9, 52, 86, 1),
+              color: AppColors.main_blue,
               height: size.height * 0.28,
             ),
-              child,
+            child,
           ],
         ),
       ),
